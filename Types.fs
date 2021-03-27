@@ -7,3 +7,8 @@ type Shape =
   | Square of float
   /// A triangle with side lengths.
   | Triangle of float * float * float
+
+/// My own list.
+type MyList<'T> =
+  | Nil
+  | Cons of 'T * MyList<'T>
