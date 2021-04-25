@@ -12,3 +12,8 @@ type Shape =
 type MyList<'T> =
   | Nil
   | Cons of 'T * MyList<'T>
+
+/// Type IntTree
+type IntTree =
+  | Node of left: IntTree ∗ int ∗ right : IntTree
+  | Empty
