@@ -15,5 +15,5 @@ type MyList<'T> =
 
 /// Type IntTree
 type IntTree =
-  | Node of left: IntTree ∗ int ∗ right : IntTree
+  | Node of left: IntTree * int * right : IntTree
   | Empty
