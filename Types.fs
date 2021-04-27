@@ -17,3 +17,13 @@ type MyList<'T> =
 type IntTree =
   | Node of left: IntTree * int * right : IntTree
   | Empty
+
+[<AbstractClass>]
+type Animal (age) =
+  member __.Age with get () = age
+
+type Dog (age) =
+  inherit Animal(age)
+
+type Cat (age) =
+  inherit Animal(age)
