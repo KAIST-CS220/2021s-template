@@ -19,7 +19,7 @@ type IntTree =
   | Empty
 
 [<AbstractClass>]
-type Animal (age) =
+type Animal (age: int) =
   member __.Age with get () = age
 
 type Dog (age) =
