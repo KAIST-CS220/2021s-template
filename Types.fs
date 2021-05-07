@@ -18,12 +18,28 @@ type IntTree =
   | Node of left: IntTree * int * right : IntTree
   | Empty
 
+type ILocatable =
+  abstract X: float
+  abstract Y: float
+
 [<AbstractClass>]
 type Animal (age: int) =
   member __.Age with get () = age
 
-type Dog (age) =
+type Dog (age, x, y) =
   inherit Animal(age)
+  interface ILocatable with
+    member __.X = x
+    member __.Y = y
 
-type Cat (age) =
+type Cat (age, x, y) =
   inherit Animal(age)
+  interface ILocatable with
+    member __.X = x
+    member __.Y = y
+
+type Elephant (age, x, y) =
+  inherit Animal(age)
+  interface ILocatable with
+    member __.X = x
+    member __.Y = y
