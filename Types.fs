@@ -43,3 +43,7 @@ type Elephant (age, x, y) =
   interface ILocatable with
     member __.X = x
     member __.Y = y
+
+type Stream<'a> =
+  | Nil
+  | Cons of 'a * (unit -> Stream<'a>)
