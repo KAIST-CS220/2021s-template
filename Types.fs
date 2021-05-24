@@ -47,3 +47,8 @@ type Elephant (age, x, y) =
 type Stream<'a> =
   | Nil
   | Cons of 'a * (unit -> Stream<'a>)
+
+type LoggableInteger = {
+  Value: int
+  Log: string list
+}
