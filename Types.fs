@@ -52,3 +52,25 @@ type LoggableInteger = {
   Value: int
   Log: string list
 }
+
+type Parser<'a> = {
+  Parse: string -> Result<'a * string, string>
+}
+
+module Parser =
+  let char ch =
+    { Parse = fun s ->
+        if System.String.IsNullOrEmpty (s) then Error "No more input."
+        else
+          if s.[0] = ch then Ok (s.[0], s.[1..])
+          else Error "Invalid char." }
+
+type ParserBuilder () =
+  member __.Bind (p, f) =
+    { Parse = (fun s ->
+               match p.Parse s with
+               | Ok (v, rest) -> (f v).Parse rest
+               | Error e -> Error e) }
+
+  member __.Return (v) =
+    { Parse = (fun s -> Ok (v, s)) }
