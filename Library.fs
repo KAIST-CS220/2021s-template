@@ -40,5 +40,44 @@ let orElse p1 p2 =
 
 let (<|>) = orElse
 
+let rec zeroOrMore p s =
+  match p.Parse s with
+  | Error _ -> ([], s)
+  | Ok (v, s) ->
+    let v', s' = zeroOrMore p s
+    v :: v', s'
+
+let many p = { Parse = fun s -> Ok (zeroOrMore p s) }
+
+let digit = ['0'..'9'] |> List.map Parser.char |> List.reduce (<|>)
+
+let number =
+  parser {
+    let! d = digit
+    let! ds = many digit
+    return (d :: ds)
+  } |>> (List.toArray >> System.String >> int >> Number)
+
+let mutable exprRef = { Parse = fun _ -> failwith " XXX " }
+let expr = { Parse = fun s -> exprRef.Parse s }
+
+let add =
+  parser {
+    let! n = number
+    let! _ = Parser.char '+'
+    let! e = expr
+    return Add (n , e)
+  }
+
+let sub =
+  parser {
+    let! n = number
+    let! _ = Parser.char '-'
+    let! e = expr
+    return Sub (n , e)
+  }
+
+exprRef <- add <|> sub <|> number
+
 let myfunc lst =
   failwith "Implement"

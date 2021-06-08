@@ -74,3 +74,8 @@ type ParserBuilder () =
 
   member __.Return (v) =
     { Parse = (fun s -> Ok (v, s)) }
+
+type Expr =
+  | Number of int
+  | Add of Expr * Expr
+  | Sub of Expr * Expr
